@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
         //信号槽连接,绑定按键和处理函数
         connect(pushBtn1, SIGNAL(clicked()), this, SLOT(pushBtn1_click()));
         connect(pushBtn2, SIGNAL(clicked()), this, SLOT(pushBtn2_click()));
-    ui->tcpClient.show();
+//    ui->tcpClient.show();
 }
 
 MainWindow::~MainWindow()

@@ -19,6 +19,7 @@ public:
     void BtnShow(void);
 
 private:    
+    Ui::MainWindow *ui;
     //添加按键
     QPushButton * pushBtn1;
     QPushButton * pushBtn2;
