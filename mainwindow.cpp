@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
 //        pushBtn1 = new QPushButton("窗口皮肤 1", this);
 //        pushBtn2 = new QPushButton("窗口皮肤 2", this);
         pushBtn1 = new QPushButton("通信设置", this); //设置按键名称
-        pushBtn2 = new QPushButton("按键2", this);
+        pushBtn2 = new QPushButton("断开连接", this);
 
         //设定两个 QPushButton 对象的位置
         pushBtn1->setGeometry(0,5,80,40);
@@ -47,6 +47,7 @@ void MainWindow::pushBtn2_click()
 {
     // 应用第二张图片作为背景皮肤，调整大小以铺满窗口
 //    this->setStyleSheet("QMainWindow {background-image: url(/home/qinlong/Qt/04_buttons_example/picture/r8.jpg); background-position: center; background-repeat: no-repeat; background-size: cover;}");
+    tcpClient.slotDisconnected();
 }
 
 //在UI上直接添加的按键，通过右键转到槽跳转过来的；每次改名的时候要删除之前的接口;

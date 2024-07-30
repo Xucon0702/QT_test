@@ -64,14 +64,14 @@ void TcpClient::slotEnter()
 {
     if(!status)
     {
-        QString ip = serverIPLineEdit->text();
-        if(!serverIP->setAddress(ip))
+        QString ip = serverIPLineEdit->text();  //获取输入的ip
+        if(!serverIP->setAddress(ip))           //判断IP是否设置成功
         {
             QMessageBox::information(this,tr("error"),tr("server ip address error!"));
             return;
         }
 
-        if(userNameLineEdit->text()=="")
+        if(userNameLineEdit->text()=="")        //判断用户名是否为空
         {
             QMessageBox::information(this,tr("error"),tr("User name error!"));
             return;
@@ -79,20 +79,20 @@ void TcpClient::slotEnter()
 
         userName=userNameLineEdit->text();
 
-        tcpSocket = new QTcpSocket(this);
+        tcpSocket = new QTcpSocket(this);    //创建tcp的socket
 
-        connect(tcpSocket,SIGNAL(connected()),
+        connect(tcpSocket,SIGNAL(connected()), //绑定接口:tcp连接成功时调用slotConnected
                 this,SLOT(slotConnected()));
 
-        connect(tcpSocket,SIGNAL(disconnected()),
+        connect(tcpSocket,SIGNAL(disconnected()), //绑定接口:tcp连接断开时调用slotDisconnected
                 this,SLOT(slotDisconnected()));
 
-        connect(tcpSocket,SIGNAL(readyRead()),
+        connect(tcpSocket,SIGNAL(readyRead()),      //绑定接口:tcp收到数据时调用dataReceived
                 this,SLOT(dataReceived()));
 
-        tcpSocket->connectToHost(*serverIP,port);
+        tcpSocket->connectToHost(*serverIP,port);       //连接服务端
 
-        status=true;
+        status=true;                                    //连接后改变连接状态，防止重复连接
     }
     else
     {
@@ -116,7 +116,7 @@ void TcpClient::slotConnected()
 
     int length=0;
     QString msg=userName+tr(":Enter Chat Room");
-    if((length=tcpSocket->write(msg.toLatin1(),msg.length()))!=msg.length())
+    if((length=tcpSocket->write(msg.toLatin1(),msg.length()))!=msg.length())  //实际发送的数据和msg原本长度不同的话 return --> 可以报错
     {
         return;
     }
@@ -131,14 +131,20 @@ void TcpClient::slotSend()
 
     QString msg=userName+":"+sendLineEdit->text();
 
-    tcpSocket->write(msg.toLatin1(),msg.length());
-    sendLineEdit->clear();
+    tcpSocket->write(msg.toLatin1(),msg.length()); //发送数据
+    sendLineEdit->clear();  //清除发送的数据框
 }
 
 void TcpClient::slotDisconnected()
 {
     sendBtn->setEnabled(false);
     enterBtn->setText(tr("进入聊天室"));
+
+    //关闭tcp连接
+    tcpSocket->disconnectFromHost();
+    contentListWidget->clear();   //断连后清除界面信息
+
+    status=false;
 }
 
 void TcpClient::dataReceived()
@@ -151,6 +157,6 @@ void TcpClient::dataReceived()
         tcpSocket->read(datagram.data(),datagram.size());
 
         QString msg=datagram.data();
-        contentListWidget->addItem(msg.left(datagram.size()));
+        contentListWidget->addItem(msg.left(datagram.size()));  //添加输入的信息显示
     }
 }
