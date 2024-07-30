@@ -25,14 +25,7 @@ private:
     QPushButton * pushBtn2;
 
     TcpClient tcpClient;
-    //CUdpTools udp_tool;
-    QTcpSocket *tcpSocket;
-//    QUdpSocket* udpSocket;
-    QString m_ipStr = "172.16.30.42";
-    int m_port = 9949;
-    int fd;             //socket id
 
-//    TcpClient tcpClient;
 private slots:
     //按键处理函数
     void pushBtn1_click();
