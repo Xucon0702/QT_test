@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QMessageBox>
+#include <QThread>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -13,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
         //实例化两个按钮对象，并设置其显示文本为窗口皮肤 1 和窗口皮肤 2
 //        pushBtn1 = new QPushButton("窗口皮肤 1", this);
 //        pushBtn2 = new QPushButton("窗口皮肤 2", this);
-        pushBtn1 = new QPushButton("按键1", this); //设置按键名称
+        pushBtn1 = new QPushButton("通信设置", this); //设置按键名称
         pushBtn2 = new QPushButton("按键2", this);
 
         //设定两个 QPushButton 对象的位置
@@ -35,6 +36,11 @@ void MainWindow::pushBtn1_click()
 {
     // 应用第一张图片作为背景皮肤，调整大小以铺满窗口
 //    this->setStyleSheet("QMainWindow {background-image: url(/home/qinlong/Qt/04_buttons_example/picture/a8.jpg); background-position: center; background-repeat: no-repeat; background-size: cover;}");
+
+
+//    TcpClient tcpClient;  //临时变量,函数调用结束就没了
+    tcpClient.show();   //类成员可以长久保持,不影响主界面的操作;点击弹出对话框
+//    QThread::sleep(10);
 }
 
 void MainWindow::pushBtn2_click()

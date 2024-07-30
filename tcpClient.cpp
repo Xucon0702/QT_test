@@ -21,7 +21,7 @@ TcpClient::TcpClient(QWidget *parent,Qt::WindowFlags f)
     portLabel = new QLabel(tr("端口："));
     portLineEdit = new QLineEdit;
 
-    enterBtn= new QPushButton(tr("进入聊天室"));
+    enterBtn= new QPushButton(tr("开始连接"));
 
     mainLayout = new QGridLayout(this);
     mainLayout->addWidget(contentListWidget,0,0,1,2);
